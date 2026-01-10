@@ -89,6 +89,14 @@ $ inject --map fuel_aggro.hex --calc-cs --verify
 $ suppress --dtc P0420 --dtc P0430 --status active
 ```
 ---
+## 🗺️ 2026 Development Roadmap
+The XRS-9000 project is evolving to handle the next generation of encrypted automotive architectures.
+
+* **Q1 2026:** Integration of **AI-Driven Ignition Mapping**—Neural networks that optimize timing based on live cylinder pressure telemetry.
+* **Q2 2026:** **OTA Stealth Updates**—Enable encrypted firmware pushes over the vehicle's internal Wi-Fi/LTE bridge without physical DB-37 access.
+* **Q3 2026:** **V2X (Vehicle-to-Everything) Spoofing**—Initial support for manipulating DSRC/C-V2X safety messages to prevent external speed-limiting by smart infrastructure.
+* **Q4 2026:** Support for **800V EV Architecture**—Bypassing thermal limiters on high-output electric drive units (EDU).
+* 
 
 ## 🛠 Support & Commercial Inquiries
 For technical support, custom **V-MAP** development, or hardware integration queries, contact the lead developer via the following encrypted channels:
