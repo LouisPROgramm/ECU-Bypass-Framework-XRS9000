@@ -1,5 +1,3 @@
-# ECU-Bypass-Framework-XRS9000
-High-performance ECU Bypass Framework &amp; CAN-FD Interceptor. Support for UDS ISO 14229, Seed-Key exploits, and real-time Checksum correction for PCM/ECM modules Advanced automotive MitM interface for ECU/PCM/BCM protocol emulation. Features V-GLITCH bootloader exploits, J1939 sniffing, and DoIP injection for IVN research.
 # ECU-Bypass-Framework-XRS9000 (v7.0.4-LTS)
 ## Advanced Powertrain Intercept & Emulation System (ASIPE)
 
@@ -43,14 +41,23 @@ The platform utilizes the **"Triad-Exploit"** methodology to bypass security lay
 | **J1939** | PGN Request Hijacking | Stripping speed governors and RPM ceilings in heavy-duty units. |
 | **LIN-Bus** | Master-Slave Spoofing | Controlling auxiliary subsystems (Turbo VGT, Pumps, Fans). |
 
-### Core Mechanisms:
-1.  **V-GLITCH (Bootloader Exploit):** Induces a precise voltage drop on the **MCU power rail** during the boot sequence to bypass **RSA-4096 Signature Checks**.
-2.  **CS-COR (Checksum Correction):** An FPGA engine that recalculates **CRC-32/SHA-256** hashes in real-time, preventing the ECU from detecting modified **A/F (Air-Fuel)** tables.
-3.  **L-MODE Suppression:** Intercepts "Limp Mode" requests and returns a **"Status OK"** heartbeat to the instrument cluster to prevent power derating.
+---
+
+## IV. Advanced Problem Solving & Module Neutralization
+Beyond standard remapping, the XRS-9000 solves critical integration hurdles in modern vehicle architecture:
+
+### 1. Persistent DTC Ghosting (Error Masking)
+The framework employs a **Service 0x14 Suppression** algorithm. Unlike standard scanners that clear codes, the XRS-9000 intercepts the **Diagnostic Response Frame** from the ECU. It filters out specified **P-Codes (Powertrain)**, **U-Codes (Network)**, and **B-Codes (Body)** in real-time. To the factory technician's tool, the vehicle reports a "Zero-Error" state even if hardware components (like EGR or EVAP) are physically disconnected.
+
+### 2. ADAS Sensor Virtualization (Radar/Lidar Spoofing)
+In engine-swap scenarios where the original **ADAS (Advanced Driver Assistance Systems)** sensors are missing, the ECU often limits vehicle speed or disables cruise control. The XRS-9000 emulates the **High-Speed CAN** heartbeats of missing Radar/Camera modules, feeding the **BCM** synthetic "Clear Path" data to maintain full powertrain functionality.
+
+### 3. Immobilizer Handshake Emulation (IMMO-BYPASS)
+The system solves the "No-Start" issue in standalone swaps by performing a **Rolling Code Emulation**. It captures the initial **Challenge/Response** between the Key Module and the ECU, then utilizes a cached **Handshake Packet** to satisfy the security gate, allowing the engine to start without the original ignition barrel or key fob.
 
 ---
 
-## IV. Pinout & Connectivity (DB-37 Interface)
+## V. Pinout & Connectivity (DB-37 Interface)
 
 
 
@@ -65,24 +72,21 @@ The platform utilizes the **"Triad-Exploit"** methodology to bypass security lay
 
 ---
 
-## V. Command Line Interface (CLI) Manual
+## VI. Command Line Interface (CLI) Manual
 Access the device via **UART/USB-C** at **115200 Baud**.
 
 ```bash
 # Initialize the B-PASS Protocol
 $ xrs-link --init --protocol CAN-FD --speed 500k
 
-# Dump the current P-Flash sectors to local storage
-$ dump --sector 0x000 --size 2MB --out backup.bin
+# Execute IMMO-Emulation for standalone start
+$ auth --immo-bypass --v-gate 0x0A
 
 # Inject custom Fuel-Map and calculate Checksums
 $ inject --map fuel_aggro.hex --calc-cs --verify
 
 # Mask specific P-Codes (Example: Catalyst Efficiency)
-$ suppress --dtc P0420 --dtc P0430 --status active
-
-# Monitor live Bus Load and Packet Arbitration
-$ monitor --live --hex --id 0x101
+$ suppress --dtc P0420 --dtc P0430 --status active```
 ---
 
 ## 🛠 Support & Commercial Inquiries
@@ -92,3 +96,4 @@ For technical support, custom **V-MAP** development, or hardware integration que
 * **Discord:** `ahrd1`
 
 ---
+
