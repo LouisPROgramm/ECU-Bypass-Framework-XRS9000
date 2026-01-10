@@ -75,7 +75,7 @@ The system solves the "No-Start" issue in standalone swaps by performing a **Rol
 ## VI. Command Line Interface (CLI) Manual
 Access the device via **UART/USB-C** at **115200 Baud**.
 
-```bash
+```
 # Initialize the B-PASS Protocol
 $ xrs-link --init --protocol CAN-FD --speed 500k
 
@@ -86,7 +86,8 @@ $ auth --immo-bypass --v-gate 0x0A
 $ inject --map fuel_aggro.hex --calc-cs --verify
 
 # Mask specific P-Codes (Example: Catalyst Efficiency)
-$ suppress --dtc P0420 --dtc P0430 --status active```
+$ suppress --dtc P0420 --dtc P0430 --status active
+```
 ---
 
 ## 🛠 Support & Commercial Inquiries
