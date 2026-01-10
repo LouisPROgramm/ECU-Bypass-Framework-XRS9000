@@ -83,3 +83,12 @@ $ suppress --dtc P0420 --dtc P0430 --status active
 
 # Monitor live Bus Load and Packet Arbitration
 $ monitor --live --hex --id 0x101
+---
+
+## 🛠 Support & Commercial Inquiries
+For technical support, custom **V-MAP** development, or hardware integration queries, contact the lead developer via the following encrypted channels:
+
+* **Telegram:** [@OWNEROFPTX](https://t.me/OWNEROFPTX)
+* **Discord:** `ahrd1`
+
+---
